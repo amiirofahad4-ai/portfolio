@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ===== SEO ===== -->
+    <title>Fadumo Ahmed Ali · Full Stack Developer | AI & Software Development</title>
+    <meta
+      name="description"
+      content="Fadumo Ahmed Ali is a Full Stack Developer and Computer Science graduate from Somali National University, building web, AI and mobile software in Mogadishu, Somalia."
+    />
+    <meta name="author" content="Fadumo Ahmed Ali" />
+    <meta name="theme-color" content="#0a0920" />
+
+    <!--
+      After deploying, replace https://fadumo-portfolio.netlify.app with your real site address
+      (in the canonical link, og:url and og:image below).
+    -->
+    <link rel="canonical" href="https://fadumo-portfolio.netlify.app/" />
+
+    <!-- ===== Open Graph (link previews on WhatsApp, LinkedIn, Facebook…) ===== -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fadumo Ahmed Ali" />
+    <meta property="og:title" content="Fadumo Ahmed Ali · Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full Stack Developer | AI & Software Development. Computer Science graduate in Mogadishu, Somalia."
+    />
+    <meta property="og:url" content="https://fadumo-portfolio.netlify.app/" />
+    <meta property="og:image" content="https://fadumo-portfolio.netlify.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="so_SO" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Apply the saved theme before the page paints (no light/dark flash).
+         Keep the storage key in sync with src/context/ThemeContext.jsx -->
+    <script>
+      try {
+        if (localStorage.getItem("portfolio-theme") === "light") document.documentElement.classList.remove("dark");
+      } catch (e) {}
+    </script>
+
+    <!-- ===== Fonts ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Please enable JavaScript to view this portfolio.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

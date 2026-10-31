@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   Theme variables
+   Light theme on :root, dark theme (default) on .dark
+   Colors are "R G B" so Tailwind can add opacity.
+   ========================================================= */
+@layer base {
+  :root {
+    --c-bg: 246 243 255; /* #f6f3ff */
+    --c-fg: 26 20 66; /* #1a1442 */
+    --c-muted: 93 88 132; /* #5d5884 */
+    --c-accent: 124 58 237; /* #7c3aed */
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-line: rgba(124, 58, 237, 0.2);
+    --glass-line-hover: rgba(124, 58, 237, 0.55);
+    --shadow-glass: 0 12px 34px -16px rgba(91, 33, 182, 0.28);
+    --shadow-lift: 0 22px 44px -18px rgba(91, 33, 182, 0.38);
+    --glow-1: rgba(167, 139, 250, 0.35);
+    --glow-2: rgba(232, 121, 249, 0.18);
+    color-scheme: light;
+  }
+
+  .dark {
+    --c-bg: 10 9 32; /* #0a0920 */
+    --c-fg: 255 255 255; /* #ffffff */
+    --c-muted: 179 176 214; /* #b3b0d6 */
+    --c-accent: 192 132 252; /* #c084fc */
+    --glass-bg: rgba(255, 255, 255, 0.045);
+    --glass-line: rgba(160, 130, 255, 0.22);
+    --glass-line-hover: rgba(192, 132, 252, 0.6);
+    --shadow-glass: 0 16px 40px -18px rgba(124, 58, 237, 0.45);
+    --shadow-lift: 0 26px 50px -18px rgba(124, 58, 237, 0.6);
+    --glow-1: rgba(124, 58, 237, 0.32);
+    --glow-2: rgba(168, 85, 247, 0.16);
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px; /* keeps headings clear of the floating navbar */
+  }
+
+  /* Page background: base color + soft violet glows (top-right and left) */
+  body {
+    @apply bg-bg font-body text-fg antialiased;
+    background-image:
+      radial-gradient(55rem 38rem at 100% -5%, var(--glow-1), transparent 60%),
+      radial-gradient(45rem 40rem at -12% 45%, var(--glow-2), transparent 62%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  /* Clearly visible keyboard focus */
+  :focus-visible {
+    outline: 2px solid #a855f7;
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+
+  ::selection {
+    background: #9333ea;
+    color: #fff;
+  }
+
+  /* Smooth color change while switching themes (class added briefly by ThemeContext) */
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease,
+      fill 0.4s ease,
+      stroke 0.4s ease !important;
+  }
+}
+
+/* =========================================================
+   Reusable pieces
+   ========================================================= */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6;
+  }
+
+  /* Frosted glass card */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-line);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    @apply rounded-glass shadow-glass;
+  }
+  /* Lift + violet border on hover */
+  .glass-hover {
+    @apply transition duration-300 ease-out hover:-translate-y-1.5 hover:shadow-lift motion-reduce:hover:translate-y-0;
+  }
+  .glass-hover:hover {
+    border-color: var(--glass-line-hover);
+  }
+
+  /* Violet gradient text (used in the name) */
+  .text-gradient {
+    @apply bg-name bg-clip-text text-transparent;
+  }
+
+  /* Pill buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.95rem] font-semibold transition duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white shadow-glow hover:brightness-110;
+  }
+  .btn-outline {
+    border: 1.5px solid var(--glass-line-hover);
+    @apply btn bg-white/5 text-fg backdrop-blur hover:border-purple-500 hover:bg-purple-500/10;
+  }
+
+  /* Round gradient icon (used in section titles, contact rows) */
+  .icon-badge {
+    @apply grid shrink-0 place-items-center rounded-full bg-brand text-white shadow-glow;
+  }
+
+  /* Small pill (chips, category tags) */
+  .pill {
+    border: 1px solid var(--glass-line);
+    background: var(--glass-bg);
+    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm;
+  }
+
+  .field-input {
+    border: 1px solid var(--glass-line);
+    @apply w-full rounded-2xl bg-white/5 px-4 py-3 text-fg transition placeholder:text-muted/70 focus:border-purple-500 focus:outline-none focus:ring-[3px] focus:ring-purple-500/25;
+  }
+  :root:not(.dark) .field-input {
+    @apply bg-white;
+  }
+}
+
+/* =========================================================
+   Scroll reveal (see components/Reveal.jsx)
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,4 @@
+# Netlify reads this automatically: build with Vite, publish the dist folder
+[build]
+  command = "npm run build"
+  publish = "dist"
